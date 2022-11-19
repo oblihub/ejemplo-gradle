@@ -29,10 +29,10 @@ pipeline {
                     script {
                         if(isUnix()) {
                             echo 'Unix OS'
-                                sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                                sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.projectName=ejemplo-gradle -Dsonar.java.binaries=build'
                         } else {
                             echo 'Windows OS'
-                                bat 'gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                                bat 'gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle Dsonar.projectName=ejemplo-gradle -Dsonar.java.binaries=build'
                         }
                         echo '.....Sonar scan completed'
                     }

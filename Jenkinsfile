@@ -61,7 +61,7 @@ pipeline {
 				echo 'Gradle test in progress.....'
                 script {
 						sh 'curl -X GET "http://localhost:8081/rest/mscovid/test?msg=testing"'
-						echo '.....Gradle test completed'
+						echo '.....Gradle test completed' 
 				}
             }
         }

@@ -29,10 +29,10 @@ pipeline {
                     script {
                         if(isUnix()) {
                             echo 'Unix OS'
-                                sh './gradlew clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                                sh './gradlew clean sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
                         } else {
                             echo 'Windows OS'
-                                bat 'gradlew clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                                bat 'gradlew clean sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
                         }
                         echo '.....Sonar scan completed'
                     }

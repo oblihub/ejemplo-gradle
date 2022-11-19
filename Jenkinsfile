@@ -39,5 +39,23 @@ pipeline {
                 }
             }
         }
+		
+		stage('run') {
+            steps {
+				echo 'Gradle run in progress.....'
+                script {
+                        if(isUnix()) {
+                            echo 'Unix OS'
+                                sh './gradlew bootrun &'
+                        } else {
+                            echo 'Windows OS'
+                                bat 'gradlew bootrun &'
+                        }
+                        echo '.....Gradle run completed'
+                    }
+            }
+        }
+		
+		
     }
  }

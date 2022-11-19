@@ -21,5 +21,23 @@ pipeline {
                 echo '.....Source code compilation completed'
             }
         }
+		
+		stage('sonar') {
+            steps {
+                echo 'Sonar scan in progress.....'
+                withSonarQubeEnv(credentialsId: 'SonarQbToken2', installationName: 'SonarServer') {
+                    script {
+                        if(isUnix()) {
+                            echo 'Unix OS'
+                                sh './gradlew clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                        } else {
+                            echo 'Windows OS'
+                                bat 'gradlew clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                        }
+                        echo '.....Sonar scan completed'
+                    }
+                }
+            }
+        }
     }
  }

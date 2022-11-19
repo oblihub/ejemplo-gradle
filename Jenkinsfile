@@ -56,6 +56,15 @@ pipeline {
             }
         }
 		
-		
+		stage('test') {
+            steps {
+				echo 'Gradle test in progress.....'
+                script {
+				          sh 'curl -X GET 'http://nexus:8081/rest/mscovid/test?msg=testing''
+					}
+					echo '.....Gradle test completed'
+				}
+            }
+        }
     }
  }

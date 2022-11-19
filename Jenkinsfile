@@ -40,29 +40,21 @@ pipeline {
             }
         }
 		
-		stage('run') {
+		stage('run & test') {
             steps {
 				echo 'Gradle run in progress.....'
                 script {
                         if(isUnix()) {
                             echo 'Unix OS'
                                 sh './gradlew bootrun &'
+								sh 'curl -X GET "http://localhost:8081/rest/mscovid/test?msg=testing"'
                         } else {
                             echo 'Windows OS'
                                 bat 'gradlew bootrun &'
+								sh 'curl -X GET "http://localhost:8081/rest/mscovid/test?msg=testing"'
                         }
                         echo '.....Gradle run completed'
                     }
-            }
-        }
-		
-		stage('test') {
-            steps {
-				echo 'Gradle test in progress.....'
-                script {
-						sh 'curl -X GET "http://localhost:8081/rest/mscovid/test?msg=testing"'
-						echo '.....Gradle test completed' 
-				}
             }
         }
     }

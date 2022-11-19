@@ -47,11 +47,11 @@ pipeline {
                         if(isUnix()) {
                             echo 'Unix OS'
                                 sh './gradlew bootrun &'
-								sh 'curl -X GET "http://localhost:8081/rest/mscovid/test?msg=testing"'
+								sh "curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
                         } else {
                             echo 'Windows OS'
                                 bat 'gradlew bootrun &'
-								sh 'curl -X GET "http://localhost:8081/rest/mscovid/test?msg=testing"'
+								sh "curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
                         }
                         echo '.....Gradle run completed'
                     }

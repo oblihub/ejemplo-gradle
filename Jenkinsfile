@@ -9,7 +9,7 @@ pipeline {
 		maven 'maven'
 	}
     parameters{
-        choice(name: 'build_tool', choices: ['ninguno','maven', 'gradle'], description: 'Permite elegir el tipo de buid')
+        choice(name: 'build_tool', choices: ['maven', 'gradle'], description: 'Permite elegir el tipo de buid')
         booleanParam(name:'SonarCheck',defaultValue: false, description:'Validar codigo en Sonarqube')
         booleanParam(name:'PushToNexus',defaultValue: false, description:'Hacer push a Nexus')
     }
@@ -25,22 +25,15 @@ pipeline {
         }
 
         stage('build & test') {
-            if(prams.build_tool == 'maven'){
-                steps {
-                    script {
-                            mvn_script.buildMaven()
-                    }
+            when{
+                expression{
+                    params.build_tool == 'maven'
                 }
             }
-            if(prams.build_tool == 'gradle'){
-                steps {
-                    script {
-                            mvn_script.buildGradle()
-                    }
+            steps {
+                script {
+                        mvn_script.buildMaven()
                 }
-            }
-            else{
-                echo 'No se selecciono una opcion'
             }
         }
 

@@ -43,7 +43,7 @@ pipeline {
             }
             steps {
                 script {
-                        mvn_script.buildGradle()
+                        grdl_script.buildGradle()
                 }
             }
         }

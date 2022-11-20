@@ -12,15 +12,11 @@ pipeline {
                 script {
                     if(isUnix()) {
                         echo 'Unix OS'
-						sh './mvnw clean compile -e'
-						sh './mvnw clean test -e'
-						sh './mvnw clean package -e'
+						sh './mvnw clean install'
 						sh './gradlew build'
                     } else {
                         echo 'Windows OS'
-                        bat './mvnw clean compile -e'
-						bat './mvnw clean test -e'
-						bat './mvnw clean package -e'
+						bat 'mvnw clean install'
 						bat 'gradlew build'
                     }
                 }

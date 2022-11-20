@@ -12,10 +12,12 @@ pipeline {
                 script {
                     if(isUnix()) {
                         echo 'Unix OS'
+						sh './mavenw build'
                         sh './gradlew build'
                     } else {
                         echo 'Windows OS'
-                        bat 'gradlew build'
+                        bat 'mavenw build'
+						bat 'gradlew build'
                     }
                 }
                 echo '.....Source code compilation completed'
@@ -64,9 +66,9 @@ pipeline {
             steps {
                 echo 'Uploading to nexus in progress.....'
                 script {
-                            nexusPublisher nexusInstanceId: 'nxs01', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${WORKSPACE}/build/DevOpsUsach2020-1.0.0.jar"]], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '1.0.0']]]
-                    }
-                }
+						nexusPublisher nexusInstanceId: 'nxs01', nexusRepositoryId: 'devops-usach-nexus', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "${WORKSPACE}/build/DevOpsUsach2020-1.0.0.jar"]], mavenCoordinate: [artifactId: 'DevOpsUsach2020', groupId: 'com.devopsusach2020', packaging: 'jar', version: '1.0.0']]]
+				}
+			}
         }
     }
  }

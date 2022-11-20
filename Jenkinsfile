@@ -10,7 +10,7 @@ pipeline {
 	}
     parameters{
         choice(name: 'build_tool', choices: ['maven', 'gradle', 'ninguno'],defaultValue:'ninguno', description: 'Permite elegir el tipo de buid')
-        booleanParam(name:'SonarCheck',defaultValue: false, descripcion:'Validar codigo en Sonarqube')
+        booleanParam(name:'SonarCheck',defaultValue: false, description:'Validar codigo en Sonarqube')
         booleanParam(name:'PushToNexus',defaultValue: false, description:'Hacer push a Nexus')
     }
 

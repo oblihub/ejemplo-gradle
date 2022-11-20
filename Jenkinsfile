@@ -32,9 +32,8 @@ pipeline {
             steps {
                 script {
                         mvn_script.buildMaven()
-                    }
+                }
             }
-            
         }
 
         stage('sonar') {
@@ -59,9 +58,23 @@ pipeline {
 				echo 'Gradle run in progress.....'
                 script {
                     grdl_script.runTest()                        
-                    }
+                }
                 echo '.....Gradle run completed'
             }
+        }
+
+        stage("uploadNexus") {
+            when{
+                expression{
+                    params.PushToNexus
+                }
+            }
+            steps {
+                echo 'Uploading to nexus in progress.....'
+                script {
+					mvn_script.uploadNexus()
+				}
+			}
         }
     }
  }

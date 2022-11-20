@@ -34,17 +34,7 @@ pipeline {
                         mvn_script.buildMaven()
                     }
             }
-            when{
-                expression{
-                    params.build_tool == 'gradle'
-                }
-            }
-            steps {
-                script {
-                    grdl_script.buildGradle()
-                }
-
-            }
+            
         }
 
     }

@@ -25,15 +25,22 @@ pipeline {
         }
 
         stage('build & test') {
-            when{
-                expression{
-                    params.build_tool == 'maven'
+            if(prams.build_tool == 'maven'){
+                steps {
+                    script {
+                            mvn_script.buildMaven()
+                    }
                 }
             }
-            steps {
-                script {
-                        mvn_script.buildMaven()
+            if(prams.build_tool == 'gradle'){
+                steps {
+                    script {
+                            mvn_script.buildGradle()
+                    }
                 }
+            }
+            else{
+                echo 'No se selecciono una opcion'
             }
         }
 

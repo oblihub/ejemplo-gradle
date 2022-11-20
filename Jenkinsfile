@@ -31,8 +31,9 @@ pipeline {
             }
             steps {
                 script {
-                    mvn_script.buildMaven()
-                }
+                        mvn_script.buildMaven()
+                    }
+            }
             when{
                 expression{
                     params.build_tool == 'gradle'

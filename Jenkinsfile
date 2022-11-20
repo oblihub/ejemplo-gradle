@@ -37,5 +37,31 @@ pipeline {
             
         }
 
+        stage('sonar') {
+            steps {
+                echo 'Sonar scan in progress.....'
+                withSonarQubeEnv(credentialsId: 'SonarQbToken2', installationName: 'SonarServer') {
+                    script {
+                        grdl_script.sonarGradle()
+                        echo '.....Sonar scan completed'
+                    }
+                }
+            }
+        }
+
+        stage('run & test') {
+            when{
+                expression{
+                    params.build_tool == 'gradle'
+                }
+            }
+            steps {
+				echo 'Gradle run in progress.....'
+                script {
+                    grdl_script.runTest()                        
+                    }
+                echo '.....Gradle run completed'
+            }
+        }
     }
  }

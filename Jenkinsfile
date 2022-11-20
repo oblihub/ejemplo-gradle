@@ -24,7 +24,7 @@ pipeline {
             }
         }
 
-        stage('build & test') {
+        stage('build & test (Maven)') {
             when{
                 expression{
                     params.build_tool == 'maven'
@@ -54,7 +54,7 @@ pipeline {
             }
         }
 
-        stage('run & test') {
+        stage('run & test (Gradle)') {
             when{
                 expression{
                     params.build_tool == 'gradle'

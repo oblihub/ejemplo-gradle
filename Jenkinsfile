@@ -23,7 +23,6 @@ pipeline {
                 }
             }
         }
-
         stage('build & test (Maven)') {
             when{
                 expression{
@@ -33,6 +32,18 @@ pipeline {
             steps {
                 script {
                         mvn_script.buildMaven()
+                }
+            }
+        }
+        stage('build (Gradle)') {
+            when{
+                expression{
+                    params.build_tool == 'gradle'
+                }
+            }
+            steps {
+                script {
+                        mvn_script.buildGradle()
                 }
             }
         }

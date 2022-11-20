@@ -9,7 +9,6 @@ def sonarGradle(){
 }
 
 def runTest(){
-        sh './gradlew build'
         sh './gradlew bootrun &'
         sh 'sleep 5'
         sh "curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"

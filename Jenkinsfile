@@ -10,7 +10,6 @@ pipeline {
 	}
     parameters{
         choice(name: 'build_tool', choices: ['maven', 'gradle'], description: 'Permite elegir el tipo de buid')
-        booleanParam(name:'SonarCheck',defaultValue: false, description:'Validar codigo en Sonarqube')
         booleanParam(name:'PushToNexus',defaultValue: false, description:'Hacer push a Nexus')
     }
 
@@ -48,10 +47,10 @@ pipeline {
             }
         }
 
-        stage('sonar') {            
+        stage('SonarQube (Gradle)') {            
             when{
                 expression{
-                    params.SonarCheck
+                    params.build_tool == 'gradle'
                 }
             }
             steps {
@@ -65,6 +64,22 @@ pipeline {
             }
         }
 
+        stage('SonarQube (Maven)') {            
+            when{
+                expression{
+                    params.build_tool == 'maven'
+                }
+            }
+            steps {
+                echo 'Sonar scan in progress.....'
+                withSonarQubeEnv(credentialsId: 'SonarQbToken2', installationName: 'SonarServer') {
+                    script {
+                        mvn_script.sonarMaven()
+                        echo '.....Sonar scan completed'
+                    }
+                }
+            }
+        }
         stage('run & test (Gradle)') {
             when{
                 expression{
